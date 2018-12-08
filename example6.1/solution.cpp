@@ -41,8 +41,11 @@ void run(int i)
 		else if(now[2] == 'l')
 		{
 			locked = false;
-			ready.push_front(block[0]);
-			block.pop_front();
+			if(block.size())
+			{
+				ready.push_front(block[0]);
+				block.pop_front();
+			}
 			time -= str[3];
 		}
 		else if(now[2] == 'd')
@@ -69,18 +72,15 @@ int main(){
 		{
 			if(code[indexCode-1][2] == 'd')
 			{
+				ready.push_back(indexProm - 1);
 				id[indexProm++] = indexCode;
-				cout << "indexProm: " << indexProm << endl;
 				if(indexProm == program + 1)
 				{
 					break;
 				} 	
 			}
 		}
-		for(int i = 0; i < program; i++)
-		{
-			ready.push_back(i);
-		}	
+		locked = false;
 		while(ready.size())
 		{
 
@@ -88,6 +88,8 @@ int main(){
 			ready.pop_front();
 			run(next);
 		}
+		if(t) cout << endl;
 	}
+	return 0;
 	
 }
